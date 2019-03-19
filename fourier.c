@@ -40,20 +40,20 @@ void fft(double complex s[MAX_SIZE], double complex t[MAX_SIZE], int n, int sign
   //divisão entre pares e impares
   int i_i = 0;
   int i_p = 0;
-  for(int z = 0; z < n - 1; z++){
-  if(z % 2 == 0){
-    sp[i_p] = s[z];
-    i_p++;
-  }
-  else
-  {
+  for(int z = 0; z < n; z++){
+  if((z)%2){ //se for 0 False, !=0 True
     si[i_i] = s[z];
     i_i++;
   }
+  else{
+    sp[i_p] = s[z];
+    i_p++;
   }
-
+}
+  //Chamadas recursivas
   fft(sp,tp,size,sign);
   fft(si,ti,size,sign);
+
 
   for (int k = 0; k < size; k++) {
     t[k] = tp[k] + ti[k]*cexp(sign * 2 * PI * k  * I / n);
